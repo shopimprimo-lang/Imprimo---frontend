@@ -20,8 +20,8 @@ const PhotoSection = ({ data }: { data: Product }) => {
             <button
               key={index}
               type="button"
-              className={`relative shrink-0 bg-[#F0EEED] rounded-[13px] xl:rounded-[20px] w-[90px] h-[90px] sm:w-[111px] sm:h-[111px] lg:w-full lg:h-[152px] overflow-hidden transition-all duration-300 snap-center ${
-                selected === photo ? "ring-2 ring-offset-2 ring-[#D71920] opacity-100" : "opacity-70 hover:opacity-100"
+              className={`relative shrink-0 bg-white/5 rounded-none xl:rounded-none w-[90px] h-[90px] sm:w-[111px] sm:h-[111px] lg:w-full lg:h-[152px] overflow-hidden transition-all duration-300 snap-center ${
+                selected === photo ? "ring-2 ring-offset-2 ring-im-gold opacity-100" : "opacity-70 hover:opacity-100"
               }`}
               onClick={() => setSelected(photo)}
             >
@@ -29,7 +29,7 @@ const PhotoSection = ({ data }: { data: Product }) => {
                 src={photo}
                 fill
                 sizes="152px"
-                className="rounded-md object-cover hover:scale-110 transition-all duration-500"
+                className="rounded-none object-cover hover:scale-110 transition-all duration-500"
                 alt={data.title}
                 priority
                 unoptimized
@@ -39,12 +39,12 @@ const PhotoSection = ({ data }: { data: Product }) => {
         </div>
       )}
 
-      <div className="relative flex items-center justify-center bg-[#F0EEED] rounded-[13px] sm:rounded-[20px] w-full sm:w-96 md:w-full mx-auto h-full max-h-[530px] min-h-[330px] lg:min-h-[380px] xl:min-h-[530px] overflow-hidden mb-3 lg:mb-0">
+      <div className="relative flex items-center justify-center bg-white/5 rounded-none sm:rounded-none w-full sm:w-96 md:w-full mx-auto h-full max-h-[530px] min-h-[330px] lg:min-h-[380px] xl:min-h-[530px] overflow-hidden mb-3 lg:mb-0">
         <Image
           src={selected}
           fill
           sizes="(max-width: 768px) 100vw, 444px"
-          className="rounded-md object-cover hover:scale-110 transition-all duration-500"
+          className="rounded-none object-cover hover:scale-110 transition-all duration-500"
           alt={data.title}
           priority
           unoptimized

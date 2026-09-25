@@ -1,5 +1,4 @@
 import React from "react";
-import * as motion from "framer-motion/client";
 import { integralCF } from "@/styles/fonts";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -22,62 +21,44 @@ export default function CategoriesSection({ categories }: Props) {
 
   return (
     <section id="categories" className="max-w-frame mx-auto text-center px-4 xl:px-0">
-      <motion.h2
-        initial={{ y: "50px", opacity: 0 }}
-        whileInView={{ y: "0", opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className={cn([
-          integralCF.className,
-          "text-[32px] md:text-5xl mb-8 md:mb-14 capitalize text-[#1a1a1a]",
-        ])}
-      >
-        Shop by <span className="text-[#D71920]">Category</span>
-      </motion.h2>
-      
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-        {categories.map((cat, i) => (
-          <motion.div
+      <h2 className={cn([integralCF.className, "section-title"])}>Shop by Category</h2>
+      <p className="mt-4 mb-8 md:mb-12 text-sm md:text-base font-light text-im-text/80">Printing · Gifting · Packaging</p>
+
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-5">
+        {categories.map((cat) => {
+          return (
+          <Link
             key={cat._id}
-            initial={{ y: "50px", opacity: 0 }}
-            whileInView={{ y: "0", opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1, duration: 0.5 }}
+            href={`/shop?categories=${cat.name}`}
+            className="card-luxe group flex flex-col overflow-hidden w-[calc(50%-6px)] sm:w-[calc(33.333%-11px)] lg:w-[calc(20%-16px)]"
           >
-            <Link
-              href={`/shop?categories=${cat.name}`}
-              className="group relative block cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_35px_rgba(0,0,0,0.1)] transition-all duration-300"
-            >
-              {/* Image Container with 4:5 Aspect Ratio */}
-            <div className="relative w-full aspect-[4/5] bg-[#F8F8F8] overflow-hidden">
+            <div className="relative w-full aspect-[4/3] sm:aspect-square bg-im-black overflow-hidden">
               {cat.image && (
                 <Image
                   src={cat.image}
                   alt={cat.name}
                   fill
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 20vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               )}
-              {/* Subtle overlay only at the very bottom for text readability */}
-              <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/80 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
-              
-              {/* Content overlayed on the image */}
-              <div className="absolute bottom-0 left-0 right-0 p-5 text-left flex flex-col justify-end transform transition-transform duration-300 group-hover:translate-y-[-5px]">
-                <h3 className="font-['Syne',sans-serif] font-bold text-xl md:text-2xl text-white drop-shadow-md">
+            </div>
+            <div className="flex items-center justify-between gap-2 px-3 sm:px-4 py-3 text-left">
+              <div className="min-w-0">
+                <h3 className="font-heading font-semibold text-sm sm:text-base lg:text-lg leading-snug text-im-gold">
                   {cat.name}
                 </h3>
-                <div className="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-white/90 text-sm font-medium">Explore</span>
-                  <span className="bg-white/20 px-2 py-0.5 rounded-full text-xs text-white backdrop-blur-sm">
-                    {cat.products?.length || 0} items
-                  </span>
-                </div>
+                <p className="text-xs font-light text-im-muted mt-0.5">
+                  {cat.products?.length || 0} {cat.products?.length === 1 ? "product" : "products"}
+                </p>
               </div>
+              <span className="text-im-gold text-lg leading-none transition-transform duration-300 group-hover:translate-x-1" aria-hidden>
+                →
+              </span>
             </div>
-            </Link>
-          </motion.div>
-        ))}
+          </Link>
+          );
+        })}
       </div>
     </section>
   );

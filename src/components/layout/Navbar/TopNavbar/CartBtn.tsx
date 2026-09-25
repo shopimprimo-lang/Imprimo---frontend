@@ -2,7 +2,7 @@
 
 import { useAppSelector } from "@/lib/hooks/redux";
 import { RootState } from "@/lib/store";
-import Image from "next/image";
+import { FiShoppingCart } from "react-icons/fi";
 import Link from "next/link";
 import React from "react";
 
@@ -10,17 +10,10 @@ const CartBtn = () => {
   const { cart } = useAppSelector((state: RootState) => state.carts);
 
   return (
-    <Link href="/cart" className="relative mr-[14px] p-1 flex items-center justify-center">
-      <Image
-        priority
-        src="/icons/cart.svg"
-        height={100}
-        width={100}
-        alt="cart"
-        className="max-w-[22px] max-h-[22px] brightness-0 invert"
-      />
+    <Link href="/cart" className="relative p-1 flex items-center justify-center" aria-label="Cart">
+      <FiShoppingCart className="text-im-accent hover:text-im-gold transition-colors" size={22} aria-hidden />
       {cart && cart.totalQuantities > 0 && (
-        <span className="border bg-black text-white rounded-full w-fit-h-fit px-1 text-xs absolute -top-3 left-1/2 -translate-x-1/2">
+        <span className="bg-im-gold text-black rounded-full min-w-[18px] h-[18px] px-1 text-[11px] leading-[18px] text-center font-semibold absolute -top-2 -right-2">
           {cart.totalQuantities}
         </span>
       )}

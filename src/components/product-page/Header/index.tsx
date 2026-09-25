@@ -129,40 +129,40 @@ const Header = ({ data }: { data: Product }) => {
       </div>
       <div>
         {/* Title */}
-        <h1 className="text-2xl md:text-[40px] font-bold text-black md:leading-[40px] mb-3 md:mb-3.5 break-words">
+        <h1 className="font-heading text-[28px] md:text-[40px] font-bold text-im-gold tracking-[1px] leading-tight md:leading-[48px] mb-3 md:mb-3.5 break-words">
           {data.title}
         </h1>
 
         {/* Price & Stock & SKU */}
         <div className="flex flex-col gap-2 mb-5">
           <div className="flex items-center space-x-2.5 sm:space-x-3">
-            <span className="font-bold text-black text-2xl sm:text-[32px]">
-              ₹{displayPrice}
+            <span className="font-bold text-im-text text-2xl sm:text-[32px]">
+              QAR {displayPrice}
             </span>
           </div>
           <div className="flex flex-wrap items-center gap-4 text-sm font-medium">
-            <span className={cn("px-2 py-1 rounded", activeSizeObj && activeSizeObj.stock > 0 ? "text-green-700 bg-green-100" : activeVariant && activeVariant.stock > 0 ? "text-green-700 bg-green-100" : "text-red-700 bg-red-100")}>
+            <span className={cn("px-2.5 py-1 text-xs uppercase tracking-[1.5px] font-normal", activeSizeObj && activeSizeObj.stock > 0 ? "text-im-gold border border-[rgba(212,175,55,0.45)]" : activeVariant && activeVariant.stock > 0 ? "text-im-gold border border-[rgba(212,175,55,0.45)]" : "text-im-muted border border-white/20")}>
               {(activeSizeObj && activeSizeObj.stock > 0) || (!activeSizeObj && activeVariant && activeVariant.stock > 0) ? "In Stock" : "Out of Stock"}
             </span>
-            {/* <span className="text-gray-600 flex items-center gap-1">
+            {/* <span className="text-im-muted flex items-center gap-1">
               🚚 Estimated Delivery: 3-5 Days
             </span> */}
           </div>
         </div>
 
         {/* Description */}
-        <p className="text-sm sm:text-base text-black/60 mb-5">
+        <p className="text-sm sm:text-base text-im-text/85 font-light leading-relaxed mb-5">
           {data.description ||
             "This product is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style."}
         </p>
 
-        <hr className="h-[1px] border-t-black/10 mb-5" />
+        <hr className="h-[1px] border-t-im-rich/20 mb-5" />
 
         {/* Model Picker */}
         {availableModels.length > 0 && (
           <React.Fragment>
             <div className="flex flex-col mb-5">
-              <span className="text-sm sm:text-base text-black/60 mb-4">
+              <span className="text-xs sm:text-sm uppercase tracking-[2px] text-im-muted mb-4">
                 Choose Model
               </span>
               <div className="flex items-center flex-wrap gap-3">
@@ -174,10 +174,10 @@ const Header = ({ data }: { data: Product }) => {
                       type="button"
                       onClick={() => setSelectedModel(model)}
                       className={cn(
-                        "px-6 py-3 text-sm rounded-full font-medium transition-all border",
+                        "px-6 py-3 text-sm font-medium uppercase tracking-[1px] transition-all border",
                         isSelected
-                          ? "bg-[#D32F2F] text-white border-[#D32F2F]"
-                          : "bg-black/5 text-black border-black/10 hover:bg-black/10"
+                          ? "bg-im-gold text-black border-im-gold"
+                          : "bg-transparent text-im-text border-[rgba(201,166,70,0.3)] hover:border-im-gold hover:text-im-gold"
                       )}
                     >
                       {model.toUpperCase()}
@@ -186,7 +186,7 @@ const Header = ({ data }: { data: Product }) => {
                 })}
               </div>
             </div>
-            <hr className="h-[1px] border-t-black/10 mb-5" />
+            <hr className="h-[1px] border-t-im-rich/20 mb-5" />
           </React.Fragment>
         )}
 
@@ -194,7 +194,7 @@ const Header = ({ data }: { data: Product }) => {
         {validColorsForModel.length > 0 && (
           <React.Fragment>
             <div className="flex flex-col mb-5">
-              <span className="text-sm sm:text-base text-black/60 mb-4">
+              <span className="text-xs sm:text-sm uppercase tracking-[2px] text-im-muted mb-4">
                 Choose Color
               </span>
               <div className="flex items-center flex-wrap gap-3">
@@ -210,8 +210,8 @@ const Header = ({ data }: { data: Product }) => {
                       className={cn(
                         "w-10 h-10 rounded-full transition-all border-2",
                         isSelected
-                          ? "border-black shadow-md scale-110"
-                          : "border-black/20 hover:scale-105"
+                          ? "border-im-gold shadow-md scale-110"
+                          : "border-im-rich/30 hover:scale-105"
                       )}
                       style={{ backgroundColor: colorHex }}
                     />
@@ -219,7 +219,7 @@ const Header = ({ data }: { data: Product }) => {
                 })}
               </div>
             </div>
-            <hr className="h-[1px] border-t-black/10 mb-5" />
+            <hr className="h-[1px] border-t-im-rich/20 mb-5" />
           </React.Fragment>
         )}
 
@@ -227,7 +227,7 @@ const Header = ({ data }: { data: Product }) => {
         {validSizeNames.length > 0 && (
           <React.Fragment>
             <div className="flex flex-col mb-5">
-              <span className="text-sm sm:text-base text-black/60 mb-4">
+              <span className="text-xs sm:text-sm uppercase tracking-[2px] text-im-muted mb-4">
                 Choose {activeVariant?.sizeName || "Size"}
               </span>
               <div className="flex items-center flex-wrap gap-3">
@@ -239,10 +239,10 @@ const Header = ({ data }: { data: Product }) => {
                       type="button"
                       onClick={() => setSelectedSize(sizeName)}
                       className={cn(
-                        "px-6 py-3 text-sm rounded-full font-medium transition-all border",
+                        "px-6 py-3 text-sm font-medium uppercase tracking-[1px] transition-all border",
                         isSelected
-                          ? "bg-[#D32F2F] text-white border-[#D32F2F]"
-                          : "bg-black/5 text-black border-black/10 hover:bg-black/10"
+                          ? "bg-im-gold text-black border-im-gold"
+                          : "bg-transparent text-im-text border-[rgba(201,166,70,0.3)] hover:border-im-gold hover:text-im-gold"
                       )}
                     >
                       {sizeName.toUpperCase()}
@@ -251,18 +251,18 @@ const Header = ({ data }: { data: Product }) => {
                 })}
               </div>
             </div>
-            <hr className="h-[1px] border-t-black/10 mb-5" />
+            <hr className="h-[1px] border-t-im-rich/20 mb-5" />
           </React.Fragment>
         )}
 
         {/* Active Variant Details */}
         {activeVariant && activeVariant.description && (
           <>
-            <div className="mb-5 bg-black/5 p-4 rounded-xl border border-black/10 text-left">
-              <h4 className="text-xs font-semibold text-black/50 uppercase tracking-wider mb-1">Variant Details</h4>
-              <p className="text-sm text-black/80">{activeVariant.description}</p>
+            <div className="mb-5 card-luxe p-4 text-left">
+              <h4 className="text-xs font-semibold text-im-text/55 uppercase tracking-wider mb-1">Variant Details</h4>
+              <p className="text-sm text-im-text/80">{activeVariant.description}</p>
             </div>
-            <hr className="h-[1px] border-t-black/10 mb-5" />
+            <hr className="h-[1px] border-t-im-rich/20 mb-5" />
           </>
         )}
 
@@ -270,23 +270,23 @@ const Header = ({ data }: { data: Product }) => {
         {data.amenities && data.amenities.length > 0 && (
           <>
             <div className="mb-5 flex flex-col">
-              <span className="text-sm sm:text-base font-semibold text-black mb-3">Amenities & Features</span>
+              <span className="font-heading text-base sm:text-lg font-semibold text-im-gold mb-3">Amenities & Features</span>
               <div className="flex flex-wrap gap-2">
                 {data.amenities.map((amenity, idx) => {
                   const amName = typeof amenity === 'string' ? amenity : (amenity as any).name || 'Amenity';
                   return (
                     <div
                       key={idx}
-                      className="flex items-center gap-2 px-3 py-1.5 bg-[#e8f5e9] border border-[#a5d6a7] rounded-full text-[#374151] text-sm font-medium hover:bg-[#c8e6c9] transition-colors"
+                      className="flex items-center gap-2 px-3 py-1.5 border border-[rgba(212,175,55,0.4)] text-im-text text-sm font-light"
                     >
-                      <IoMdCheckmark className="text-[#388e3c]" />
+                      <IoMdCheckmark className="text-im-gold" />
                       {amName}
                     </div>
                   );
                 })}
               </div>
             </div>
-            <hr className="h-[1px] border-t-black/10 mb-5" />
+            <hr className="h-[1px] border-t-im-rich/20 mb-5" />
           </>
         )}
 

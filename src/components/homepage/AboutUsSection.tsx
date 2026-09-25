@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import * as motion from "framer-motion/client";
 import { integralCF } from "@/styles/fonts";
@@ -16,16 +17,9 @@ export default function AboutUsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2
-            className={cn([
-              integralCF.className,
-              "text-[36px] md:text-5xl lg:text-6xl mb-6 capitalize text-[#1a1a1a]",
-            ])}
-          >
-            About <span className="text-[#D71920]">Us</span>
-          </h2>
-          <p className="max-w-3xl mx-auto text-lg md:text-xl text-black/60 font-medium">
-            Welcome to Printiqo – your trusted destination for premium printing solutions and personalized gifts.
+          <h2 className={cn([integralCF.className, "section-title"])}>About Us</h2>
+          <p className="mt-5 max-w-3xl mx-auto text-base md:text-lg text-im-text/85 font-light leading-relaxed">
+            Welcome to Imprimo Trading – your trusted destination in Qatar for premium printing, personalized gifts and branded solutions.
           </p>
         </motion.div>
       </div>
@@ -36,24 +30,24 @@ export default function AboutUsSection() {
         whileInView={{ y: "0", opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.1, duration: 0.6 }}
-        className="bg-white rounded-3xl p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-black/5 mb-12 md:mb-20"
+        className="card-luxe p-6 sm:p-8 md:p-12 mb-12 md:mb-20"
       >
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <div className="flex-1 space-y-6">
-            <h3 className="text-2xl md:text-3xl font-bold text-black leading-tight">
+            <h3 className="font-heading text-2xl md:text-3xl font-bold text-im-gold leading-tight">
               Preserving Memories, Elevating Brands
             </h3>
-            <p className="text-[#4b5563] text-base md:text-lg leading-relaxed">
-              At Printiqo, we believe every memory deserves to be beautifully preserved and every brand deserves to stand out. We offer a wide range of high-quality printing services and customized gift products designed for individuals, businesses, schools, and corporate clients.
+            <p className="text-im-text/85 font-light text-base md:text-lg leading-relaxed">
+              At Imprimo Trading, we believe every memory deserves to be beautifully preserved and every brand deserves to stand out. We offer a wide range of high-quality printing services and customized gift products designed for individuals, businesses, schools, and corporate clients.
             </p>
-            <p className="text-[#4b5563] text-base md:text-lg leading-relaxed">
+            <p className="text-im-text/85 font-light text-base md:text-lg leading-relaxed">
               From photo mugs, cushions, keychains, photo frames, mementos, gift hampers, albums, business cards, wedding cards, ID cards, stickers, banners, and corporate branding materials to many more creative products, we combine modern printing technology with skilled craftsmanship to deliver exceptional quality.
             </p>
           </div>
           <div className="w-full md:w-1/3 flex justify-center">
-            <div className="relative w-64 h-64 md:w-72 md:h-72 bg-[#fff5f5] rounded-full flex items-center justify-center">
-               <div className="absolute inset-0 bg-[#D71920]/10 rounded-full animate-pulse blur-3xl"></div>
-               <Image src="/images/logo.png" alt="Printiqo Logo" width={160} height={160} className="relative z-10 object-contain drop-shadow-md" />
+            <div className="relative shrink-0 aspect-square w-56 h-56 md:w-72 md:h-72 bg-im-black border border-[rgba(212,175,55,0.35)] rounded-full flex items-center justify-center">
+               <div className="absolute inset-0 bg-im-gold/10 rounded-full blur-3xl"></div>
+               <Image src="/images/imprimo-logo.png" alt="Imprimo Trading" width={220} height={110} className="relative z-10 object-contain w-[180px] md:w-[220px] h-auto" unoptimized />
             </div>
           </div>
         </div>
@@ -63,17 +57,17 @@ export default function AboutUsSection() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 md:mb-24">
         {[
           {
-            icon: <Star className="w-8 h-8 text-[#D71920]" />,
+            icon: <Star className="w-8 h-8 text-im-gold" />,
             title: "Exceptional Quality",
             desc: "Premium materials combined with skilled craftsmanship for products you'll be proud to own or gift.",
           },
           {
-            icon: <HeartHandshake className="w-8 h-8 text-[#D71920]" />,
+            icon: <HeartHandshake className="w-8 h-8 text-im-gold" />,
             title: "Customer First",
             desc: "Customer satisfaction is our highest priority. Every order is handled with strict attention to detail.",
           },
           {
-            icon: <Zap className="w-8 h-8 text-[#D71920]" />,
+            icon: <Zap className="w-8 h-8 text-im-gold" />,
             title: "Timely Delivery",
             desc: "We ensure making printing easy, gifting memorable, and delivering your products exactly when you need them.",
           }
@@ -84,13 +78,13 @@ export default function AboutUsSection() {
             whileInView={{ y: "0", opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 + (idx * 0.1), duration: 0.6 }}
-            className="bg-[#fcfaf8] p-8 rounded-2xl border border-black/5 hover:shadow-lg transition-shadow duration-300 group"
+            className="card-luxe p-6 sm:p-8 group"
           >
-            <div className="w-16 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <div className="w-16 h-16 bg-im-black border border-[rgba(212,175,55,0.35)] flex items-center justify-center mb-6">
               {item.icon}
             </div>
-            <h4 className="text-xl font-bold text-black mb-3">{item.title}</h4>
-            <p className="text-black/60 leading-relaxed">{item.desc}</p>
+            <h4 className="font-heading text-xl font-semibold text-im-gold mb-3">{item.title}</h4>
+            <p className="text-im-text/80 font-light leading-relaxed">{item.desc}</p>
           </motion.div>
         ))}
       </div>
@@ -101,21 +95,24 @@ export default function AboutUsSection() {
         whileInView={{ y: "0", opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.4, duration: 0.6 }}
-        className="bg-[#D71920] text-white rounded-3xl p-10 md:p-14 text-center relative overflow-hidden"
+        className="bg-im-velvet border border-[rgba(201,166,70,0.3)] p-8 md:p-12 text-center relative overflow-hidden"
       >
-        <div className="absolute top-0 right-0 -mr-16 -mt-16 text-white/10">
+        <div className="absolute top-0 right-0 -mr-16 -mt-16 text-im-gold/10">
           <Gift className="w-64 h-64" strokeWidth={1} />
         </div>
         <div className="relative z-10">
-          <h3 className="text-2xl md:text-3xl font-semibold mb-4">
+          <h3 className="font-heading text-2xl md:text-3xl font-bold mb-4 text-im-gold">
             Bring Your Ideas To Life
           </h3>
-          <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto mb-8">
-            Whether you're celebrating a special occasion, promoting your business, or creating something unique, Printiqo is here for you.
+          <p className="text-im-text/85 font-light text-base md:text-lg max-w-2xl mx-auto mb-7">
+            Whether you're celebrating a special occasion, promoting your business, or creating something unique, Imprimo Trading is here for you.
           </p>
-          <div className="inline-block bg-white text-[#D71920] px-8 py-4 rounded-full font-bold text-lg md:text-xl shadow-lg transform hover:scale-105 transition-transform duration-300">
-            Printiqo – Print with Quality. Gift with Love.
-          </div>
+          <Link href="/shop" className="btn-gold">
+            SHOP NOW
+          </Link>
+          <p className="mt-5 text-xs tracking-[2px] uppercase text-im-rich">
+            Imprimo Trading · Service Beyond Expectations
+          </p>
         </div>
       </motion.div>
     </section>

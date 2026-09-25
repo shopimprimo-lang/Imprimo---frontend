@@ -3,16 +3,15 @@ import HeroBanner from "@/components/homepage/Header";
 import CategoriesSection from "@/components/homepage/CategoriesSection";
 import { Product } from "@/types/product.types";
 import { Banner } from "@/types/banner.types";
+import { apiFetch } from "@/lib/api";
 
-export const revalidate = 60;
+export const revalidate = 10; // short, so admin edits show up almost immediately
 
-const api = process.env.NEXT_PUBLIC_API_URL;
 
 async function getProducts(): Promise<Product[]> {
-  if (!api) return [];
   try {
-    const res = await fetch(`${api}/product`, {
-      next: { revalidate: 60 },
+    const res = await apiFetch(`/product`, {
+      next: { revalidate: 10 },
     });
     if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) return [];
     const data = await res.json();
@@ -28,12 +27,13 @@ async function getProducts(): Promise<Product[]> {
         title: p.name,
         category: p.category?.name || "General",
         description: p.description || "No description available.",
-        srcUrl: defaultVariant?.images?.[0] || "/images/pic1.png",
+        srcUrl: defaultVariant?.images?.[0] || "/images/imprimo-logo.png",
         gallery: defaultVariant?.images || [],
         price: startingPrice,
         discount: { amount: 0, percentage: 0 },
         rating: 4,
-        amenities: p.amenities || []
+        amenities: p.amenities || [],
+        featured: !!p.featured
       };
     });
   } catch (error) {
@@ -43,10 +43,9 @@ async function getProducts(): Promise<Product[]> {
 }
 
 async function getCategories() {
-  if (!api) return [];
   try {
-    const res = await fetch(`${api}/category`, {
-      next: { revalidate: 60 },
+    const res = await apiFetch(`/category`, {
+      next: { revalidate: 10 },
     });
     if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) return [];
     const data = await res.json();
@@ -57,10 +56,9 @@ async function getCategories() {
 }
 
 async function getBanners(): Promise<Banner[]> {
-  if (!api) return [];
   try {
-    const res = await fetch(`${api}/banner`, {
-      next: { revalidate: 60 },
+    const res = await apiFetch(`/banner`, {
+      next: { revalidate: 10 },
     });
     if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) return [];
     const data = await res.json();
@@ -78,21 +76,23 @@ export default async function Home() {
     getCategories(),
     getBanners(),
   ]);
+  const featured = products.filter((p) => p.featured);
 
   return (
     <>
       <HeroBanner banners={banners} />
-      <main className="my-[24px] sm:my-[40px]">
+      <div className="py-14 md:py-20">
         <CategoriesSection categories={categories} />
-        
-        <div id="products" className="mt-8 md:mt-16">
-          <ProductListSec
-            title="Featured Products"
-            data={products}
-            viewAllLink="/shop"
-          />
-        </div>
-      </main>
+      </div>
+
+      <div id="products" className="bg-im-velvet border-t border-[rgba(201,166,70,0.1)] py-14 md:py-20">
+        <ProductListSec
+          title="Featured Products"
+          eyebrow="Handpicked for you"
+          data={featured.length ? featured : products}
+          viewAllLink="/shop"
+        />
+      </div>
     </>
   );
 }

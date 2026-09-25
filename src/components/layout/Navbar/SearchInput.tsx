@@ -2,8 +2,10 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { FiSearch } from "react-icons/fi";
 import InputGroup from "@/components/ui/input-group";
 import { useRouter, useSearchParams } from "next/navigation";
+import { apiFetch } from "@/lib/api";
 
 type Suggestion = {
   id: string;
@@ -25,7 +27,6 @@ const SearchInput = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestionsRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const api = process.env.NEXT_PUBLIC_API_URL;
 
   // Sync state when URL search param changes (like going back or page refresh)
   useEffect(() => {
@@ -47,7 +48,7 @@ const SearchInput = () => {
   }, []);
 
   useEffect(() => {
-    if (!query.trim() || !api) {
+    if (!query.trim()) {
       setSuggestions([]);
       setShowSuggestions(false);
       return;
@@ -58,8 +59,7 @@ const SearchInput = () => {
     const fetchSuggestions = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch(
-          `${api}/product?search=${encodeURIComponent(query.trim())}&limit=5`,
+        const res = await apiFetch(`/product?search=${encodeURIComponent(query.trim())}&limit=5`,
           { signal: controller.signal }
         );
         if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) {
@@ -76,7 +76,7 @@ const SearchInput = () => {
                 title: p.name,
                 category: p.category?.name || "General",
                 price: v?.price || 0,
-                srcUrl: v?.images?.[0] || "/images/pic1.png",
+                srcUrl: v?.images?.[0] || "/images/imprimo-logo.png",
               };
             })
           );
@@ -125,24 +125,18 @@ const SearchInput = () => {
   };
 
   return (
-    <div className="relative w-full md:mr-3 lg:mr-10">
+    <div className="relative w-full">
       <form onSubmit={handleSearch}>
-        <InputGroup className="flex bg-[#f5f5f5] border border-black/5 h-10 md:h-[42px] pl-0">
+        <InputGroup className="flex bg-im-card border border-[rgba(201,166,70,0.3)] focus-within:border-im-gold transition-colors h-10 pl-0 rounded-none">
           <InputGroup.Text className="absolute left-4 md:left-5 top-1/2 -translate-y-1/2 z-10 mr-0 pointer-events-none">
-            <Image
-              src="/icons/search.svg"
-              alt="search"
-              width={20}
-              height={20}
-              style={{ filter: "brightness(0) opacity(0.4)" }}
-            />
+            <FiSearch className="text-im-rich" size={18} aria-hidden />
           </InputGroup.Text>
           <InputGroup.Input
             ref={inputRef}
             type="search"
             name="search"
             placeholder={placeholder}
-            className="bg-transparent placeholder:text-gray-400 placeholder:text-[15px] md:placeholder:text-base w-full pl-12 md:pl-14 text-gray-800 h-full py-0"
+            className="bg-transparent placeholder:text-im-muted placeholder:text-sm font-light w-full pl-12 md:pl-14 text-im-text h-full py-0"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => query && suggestions.length > 0 && setShowSuggestions(true)}
@@ -153,16 +147,16 @@ const SearchInput = () => {
       {showSuggestions && (
         <div
           ref={suggestionsRef}
-          className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto"
+          className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-none shadow-lg z-50 max-h-80 overflow-y-auto"
         >
           {isLoading ? (
             <div className="p-4 space-y-3">
               {Array.from({ length: 3 }).map((_, i) => (
                 <div key={i} className="flex items-center gap-3 animate-pulse">
-                  <div className="w-12 h-12 bg-gray-200 rounded flex-shrink-0" />
+                  <div className="w-12 h-12 bg-white/10 rounded flex-shrink-0" />
                   <div className="flex-1 space-y-2">
-                    <div className="h-3 bg-gray-200 rounded w-3/4" />
-                    <div className="h-3 bg-gray-200 rounded w-1/3" />
+                    <div className="h-3 bg-white/10 rounded w-3/4" />
+                    <div className="h-3 bg-white/10 rounded w-1/3" />
                   </div>
                 </div>
               ))}
@@ -173,27 +167,27 @@ const SearchInput = () => {
                 <button
                   key={p.id}
                   onClick={() => handleSuggestionClick(p.id, p.title)}
-                  className="w-full flex items-center gap-3 p-3 hover:bg-[#F0F0F0] transition-colors text-left"
+                  className="w-full flex items-center gap-3 p-3 hover:bg-white/5 transition-colors text-left"
                 >
-                  <div className="relative w-12 h-12 flex-shrink-0 rounded bg-[#F0F0F0] overflow-hidden">
+                  <div className="relative w-12 h-12 flex-shrink-0 rounded bg-white/5 overflow-hidden">
                     <Image src={p.srcUrl} alt={p.title} fill className="object-cover" unoptimized />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-black truncate">{p.title}</p>
-                    <p className="text-xs text-black/60">{p.category}</p>
-                    <p className="text-sm font-semibold text-black mt-0.5">₹{p.price}</p>
+                    <p className="text-sm font-medium text-im-text truncate">{p.title}</p>
+                    <p className="text-xs text-im-text/60">{p.category}</p>
+                    <p className="text-sm font-semibold text-im-text mt-0.5">QAR {p.price}</p>
                   </div>
                 </button>
               ))}
               <button
                 onClick={() => { router.push(`/shop?search=${encodeURIComponent(query)}`); setShowSuggestions(false); }}
-                className="w-full p-3 text-center text-sm font-medium text-black hover:bg-[#F0F0F0] transition-colors"
+                className="w-full p-3 text-center text-sm font-medium text-im-text hover:bg-white/5 transition-colors"
               >
                 View all results for "{query}"
               </button>
             </div>
           ) : (
-            <div className="p-4 text-center text-black/60 text-sm">No products found</div>
+            <div className="p-4 text-center text-im-text/60 text-sm">No products found</div>
           )}
         </div>
       )}

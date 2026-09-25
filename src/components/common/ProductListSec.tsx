@@ -1,5 +1,4 @@
 import React from "react";
-import * as motion from "framer-motion/client";
 import { cn } from "@/lib/utils";
 import { integralCF } from "@/styles/fonts";
 import {
@@ -15,46 +14,23 @@ type ProductListSecProps = {
   title: string;
   data: Product[];
   viewAllLink?: string;
+  eyebrow?: string;
 };
 
-const ProductListSec = ({ title, data, viewAllLink }: ProductListSecProps) => {
+const ProductListSec = ({ title, data, viewAllLink, eyebrow }: ProductListSecProps) => {
   return (
-    <section className="max-w-frame mx-auto text-center">
-      <motion.h2
-        initial={{ y: "100px", opacity: 0 }}
-        whileInView={{ y: "0", opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className={cn([
-          integralCF.className,
-          "text-[32px] md:text-5xl mb-8 md:mb-14 capitalize",
-        ])}
-      >
-        {(() => {
-          if (typeof title !== 'string') return title;
-          const words = title.split(' ');
-          if (words.length <= 1) return title;
-          const lastWord = words.pop();
-          return (
-            <>
-              {words.join(' ')} <span className="text-[#D71920]">{lastWord}</span>
-            </>
-          );
-        })()}
-      </motion.h2>
-      <motion.div
-        initial={{ y: "100px", opacity: 0 }}
-        whileInView={{ y: "0", opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.6, duration: 0.6 }}
-      >
+    <section className="max-w-frame mx-auto text-center px-4 xl:px-0">
+      <h2 className={cn([integralCF.className, "section-title"])}>{title}</h2>
+      {eyebrow && <p className="mt-4 text-sm md:text-base font-light text-im-text/80">{eyebrow}</p>}
+      <div className="mb-8 md:mb-12" />
+      <div>
         <Carousel
           opts={{
             align: "start",
           }}
           className="w-full mb-6 md:mb-9"
         >
-          <CarouselContent className="px-4 sm:px-0 space-x-3 sm:space-x-4 lg:space-x-5">
+          <CarouselContent className={cn("ml-0 space-x-3 sm:space-x-4 lg:space-x-5", data.length < 4 && "lg:justify-center")}>
             {data.map((product) => (
               <CarouselItem
                 key={product.id}
@@ -66,16 +42,16 @@ const ProductListSec = ({ title, data, viewAllLink }: ProductListSecProps) => {
           </CarouselContent>
         </Carousel>
         {viewAllLink && (
-          <div className="w-full px-4 sm:px-0 text-center">
+          <div className="w-full text-center">
             <Link
               href={viewAllLink}
-              className="w-full inline-block sm:w-[218px] px-[54px] py-3.5 border rounded-full hover:bg-gradient-to-r hover:from-[#F03A47] hover:to-[#D71920] hover:text-white text-[#1a1a1a] hover:border-transparent transition-all duration-300 font-medium text-sm sm:text-base border-[#EFEFEF] shadow-sm hover:shadow-soft-hover transform hover:-translate-y-1"
+              className="btn-gold w-full sm:w-auto"
             >
-              View All
+              View All Products
             </Link>
           </div>
         )}
-      </motion.div>
+      </div>
     </section>
   );
 };

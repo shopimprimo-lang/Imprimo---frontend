@@ -8,6 +8,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Image from "next/image";
+import { FiMenu } from "react-icons/fi";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { integralCF } from "@/styles/fonts";
@@ -22,27 +23,21 @@ import {
 const ResTopNavbar = ({ data }: { data: NavMenu }) => {
   return (
     <Sheet>
-      <SheetTrigger asChild className="cursor-pointer">
-        <Image
-          priority
-          src="/icons/menu.svg"
-          height={100}
-          width={100}
-          alt="menu"
-          className="max-w-[22px] max-h-[22px] brightness-0 invert"
-        />
+      <SheetTrigger className="cursor-pointer text-im-accent hover:text-im-gold transition-colors p-1" aria-label="Open menu">
+        <FiMenu size={24} aria-hidden />
       </SheetTrigger>
-      <SheetContent side="left" className="overflow-y-auto">
+      <SheetContent side="left" className="overflow-y-auto bg-im-black border-r border-[rgba(201,166,70,0.2)] text-im-text" aria-describedby={undefined}>
         <SheetHeader className="mb-10">
           <SheetTitle asChild>
             <SheetClose asChild>
               <Link href="/" className="flex items-center gap-2">
                 <Image
-                  src="/images/logo.png"
-                  alt="Printiqo Logo"
-                  width={200}
-                  height={60}
-                  className="rounded-lg object-contain h-16 w-auto"
+                  src="/images/imprimo-logo.png"
+                  alt="Imprimo Trading"
+                  width={300}
+                  height={150}
+                  className="object-contain w-[140px] h-[70px]"
+                  unoptimized
                   priority
                 />
               </Link>
@@ -54,7 +49,7 @@ const ResTopNavbar = ({ data }: { data: NavMenu }) => {
             <React.Fragment key={item.id}>
               {item.type === "MenuItem" && (
                 <SheetClose asChild>
-                  <Link href={item.url ?? "/"} className="mb-4">
+                  <Link href={item.url ?? "/"} className="mb-5 text-[17.6px] tracking-[1px] text-im-accent hover:text-im-gold transition-colors">
                     {item.label}
                   </Link>
                 </SheetClose>

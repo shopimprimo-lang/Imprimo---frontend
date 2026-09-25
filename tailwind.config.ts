@@ -10,11 +10,14 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        integralCF: ["var(--font-integralCF)"],
-        satoshi: ["var(--font-satoshi)"],
-        playfair: ["'Playfair Display'", "serif"],
-        inter: ["'Inter'", "sans-serif"],
-        syne: ["'Syne'", "sans-serif"],
+        // Reference typography (imprimotrading.com): Playfair Display + Poppins
+        heading: ["var(--font-heading)", "serif"],
+        body: ["var(--font-body)", "sans-serif"],
+        integralCF: ["var(--font-heading)", "serif"],
+        satoshi: ["var(--font-body)", "sans-serif"],
+        playfair: ["var(--font-heading)", "serif"],
+        inter: ["var(--font-body)", "sans-serif"],
+        syne: ["var(--font-heading)", "serif"],
       },
       screens: {
         xs: "375px",
@@ -26,21 +29,36 @@ const config: Config = {
         frame: "77.5rem",
       },
       colors: {
-        printiqo: {
-          red: "#D71920",
-          accent: "#F03A47",
-          white: "#FFFFFF",
-          lightGray: "#F8F8F8",
+        // Reference palette (imprimotrading.com :root)
+        im: {
+          black: "#0B0B0B",   // --deep-black: page background
+          velvet: "#080808",  // --velvet-black: footer / deepest sections
+          card: "#111111",    // --card-bg
+          gold: "#D4AF37",    // --metallic-gold: headings, links, accents
+          accent: "#D3A745",  // nav links + filled buttons (rgb 211,167,69)
+          rich: "#C9A646",    // --rich-gold: borders, hover
+          deep: "#B68E2F",    // gradient end
+          text: "#E5E5E5",    // --light-gray: body text
+          muted: "#A8A8A8",   // secondary text
+        },
+        imprimo: {
+          red: "#D63440",
+          accent: "#EE444C",
+          gold: "#D9A300",
+          charcoal: "#2B2B2B",
+          black: "#111111",
+          white: "#FFFBF5",
+          lightGray: "#F5F4F2",
           text: "#1A1A1A",
           border: "#EFEFEF",
         },
         luxury: {
-          gold: "#D4AF37",
+          gold: "#D9A300",
           dark: "#0F0F0F",
           cream: "#FAF9F8",
           slate: "#2F2F2F",
           "light-gray": "#F5F3F0",
-          "accent-gold": "#E6C200",
+          "accent-gold": "#E0A800",
         },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -53,7 +71,7 @@ const config: Config = {
           foreground: "hsl(var(--popover-foreground))",
         },
         primary: {
-          DEFAULT: "#D71920",
+          DEFAULT: "#D4AF37",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
@@ -65,14 +83,14 @@ const config: Config = {
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: "#F03A47",
+          DEFAULT: "#C9A646",
           foreground: "hsl(var(--accent-foreground))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
-        border: "#EFEFEF",
+        border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         chart: {

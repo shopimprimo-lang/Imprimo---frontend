@@ -1,45 +1,35 @@
 import type { Metadata, Viewport } from "next";
 import "@/styles/globals.css";
-import { satoshi } from "@/styles/fonts";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { integralCF, satoshi } from "@/styles/fonts";
 import TopNavbar from "@/components/layout/Navbar/TopNavbar";
 import Footer from "@/components/layout/Footer";
 import HolyLoader from "holy-loader";
 import Providers from "./providers";
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["300", "400", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
-  display: "swap",
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-dm-sans",
-  display: "swap",
-});
+const title = "Imprimo Trading | Premium Printing & Personalized Gifts";
+const description =
+  "Premium printing, personalized gifts, packaging and branded solutions from Imprimo Trading in Qatar.";
 
 export const metadata: Metadata = {
-  title: "Printiqo",
-  description: "Customized printing and gifting solutions.",
-  keywords: "Printiqo, Custom Printing, Gifting Solutions",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://imprimotrading.com"),
+  title,
+  description,
+  keywords: "Imprimo Trading, Printing Qatar, Personalized Gifts, Corporate Gifts Doha, Packaging",
   openGraph: {
-    siteName: "Printiqo",
-    title: "Printiqo",
-    description: "Customized printing and gifting solutions.",
+    siteName: "Imprimo Trading",
+    title,
+    description,
+    images: ["/images/imprimo-logo.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Printiqo",
-    description: "Customized printing and gifting solutions.",
+    title,
+    description,
   }
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: "#0B0B0B",
 };
 
 export default function RootLayout({
@@ -48,9 +38,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${satoshi.className} ${cormorant.variable} ${dmSans.variable} flex flex-col min-h-screen`}>
-        <HolyLoader color="#868686" />
+    <html lang="en" data-scroll-behavior="smooth">
+      <body className={`${satoshi.variable} ${integralCF.variable} flex flex-col min-h-screen`}>
+        <HolyLoader color="#D4AF37" />
         <Providers>
           {/* Navbar */}
           <TopNavbar />

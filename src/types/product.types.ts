@@ -41,4 +41,5 @@ export type Product = {
   rating: number;
   variants?: ProductVariant[];
   amenities?: string[];
+  featured?: boolean;
 };

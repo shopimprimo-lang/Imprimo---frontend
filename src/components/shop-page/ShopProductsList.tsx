@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import ProductCard from "@/components/common/ProductCard";
 import { Product } from "@/types/product.types";
+import { apiFetch } from "@/lib/api";
 import {
   Pagination,
   PaginationContent,
@@ -35,10 +36,10 @@ const ITEMS_PER_PAGE = 12;
 // Skeleton card shown while loading
 const SkeletonCard = () => (
   <div className="flex flex-col items-start animate-pulse">
-    <div className="bg-gray-200 rounded-[13px] lg:rounded-[20px] w-full aspect-square mb-2.5" />
-    <div className="h-4 bg-gray-200 rounded w-3/4 mb-1.5" />
-    <div className="h-3 bg-gray-200 rounded w-1/2 mb-2" />
-    <div className="h-5 bg-gray-200 rounded w-1/3" />
+    <div className="bg-white/10 rounded-none lg:rounded-none w-full aspect-square mb-2.5" />
+    <div className="h-4 bg-white/10 rounded w-3/4 mb-1.5" />
+    <div className="h-3 bg-white/10 rounded w-1/2 mb-2" />
+    <div className="h-5 bg-white/10 rounded w-1/3" />
   </div>
 );
 
@@ -48,7 +49,6 @@ const ShopProductsList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const searchParams = useSearchParams();
-  const api = process.env.NEXT_PUBLIC_API_URL;
   const prevParamsRef = useRef<string | null>(null);
   const allProductsCache = useRef<Product[]>([]);
   const cacheLoadedRef = useRef(false);
@@ -63,9 +63,7 @@ const ShopProductsList = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    if (!api) { setLoading(false); return; }
-
-    const controller = new AbortController();
+        const controller = new AbortController();
 
     const applyFilters = (all: Product[]) => {
       const categories = searchParams.get("categories");
@@ -120,7 +118,7 @@ const ShopProductsList = () => {
       setLoading(true);
       try {
         // Fetch only 100 products to avoid overloading the server
-        const res = await fetch(`${api}/product?skip=0&limit=100`, { signal: controller.signal });
+        const res = await apiFetch(`/product?skip=0&limit=100`, { signal: controller.signal });
         if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) {
           setProducts([]);
           setTotalPages(1);
@@ -140,7 +138,7 @@ const ShopProductsList = () => {
               category: p.category?.name || "General",
               categoryId: p.category?._id || (typeof p.category === 'string' ? p.category : ""),
               description: p.description || "No description available.",
-              srcUrl: v?.images?.[0] || "/images/pic1.png",
+              srcUrl: v?.images?.[0] || "/images/imprimo-logo.png",
               gallery: v?.images || [],
               price: startingPrice,
               discount: { amount: 0, percentage: 0 },
@@ -171,7 +169,7 @@ const ShopProductsList = () => {
 
     fetchAllProducts();
     return () => controller.abort();
-  }, [searchParams.toString(), currentPage, api]);
+  }, [searchParams.toString(), currentPage]);
 
   const search = searchParams.get("search");
   const categories = searchParams.get("categories");
@@ -182,11 +180,11 @@ const ShopProductsList = () => {
     <div className="flex flex-col w-full space-y-5">
       {/* Active filter labels */}
       {(search || categories || minPrice || maxPrice) && (
-        <div className="text-sm text-black/60 space-y-1">
-          {search && <p>Results for: <span className="font-semibold text-black">"{search}"</span></p>}
+        <div className="text-sm text-im-text/60 space-y-1">
+          {search && <p>Results for: <span className="font-semibold text-im-text">"{search}"</span></p>}
 
           {(minPrice || maxPrice) && (
-            <p>Price: <span className="font-semibold text-black">₹{minPrice || "0"} – ₹{maxPrice || "∞"}</span></p>
+            <p>Price: <span className="font-semibold text-im-text">QAR {minPrice || "0"} – QAR {maxPrice || "∞"}</span></p>
           )}
         </div>
       )}
@@ -204,7 +202,7 @@ const ShopProductsList = () => {
         </div>
       ) : (
         <div className="w-full text-center py-20">
-          <p className="text-black/60">
+          <p className="text-im-text/60">
             {search ? `No products found for "${search}".` : "Loading..."}
           </p>
         </div>

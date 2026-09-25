@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function ContactSection() {
   return (
     <section id="contact" className="max-w-frame mx-auto px-4 xl:px-0 mt-16 md:mt-24 mb-16 md:mb-24">
-      <div className="bg-[#1a1a1a] rounded-3xl p-8 md:p-16 flex flex-col md:flex-row items-center justify-between text-white overflow-hidden relative shadow-2xl">
+      <div className="bg-[#1a1a1a] rounded-none p-8 md:p-16 flex flex-col md:flex-row items-center justify-between text-white overflow-hidden relative shadow-2xl">
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#D32F2F] rounded-full blur-[100px] opacity-20 pointer-events-none" />
         
         <div className="max-w-2xl relative z-10 text-center md:text-left mb-8 md:mb-0">

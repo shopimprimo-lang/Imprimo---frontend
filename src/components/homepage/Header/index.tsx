@@ -27,7 +27,7 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
   }
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#F8F8F8] grid">
+    <section className="relative w-full overflow-hidden bg-im-black grid">
       <AnimatePresence mode="wait">
         {activeBanners.map((banner, index) => {
           if (index !== currentIndex) return null;
@@ -40,6 +40,8 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
               transition={{ duration: 0.8 }}
               className="col-start-1 row-start-1 w-full relative"
             >
+              {/* Whole banner links to the shop; images carry their own artwork/CTA */}
+              <Link href="/shop" aria-label={banner.title || "Shop now"} className="block">
               {/* Desktop Image */}
               <div className="hidden md:block w-full relative">
                 <Image
@@ -50,8 +52,7 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
                   sizes="100vw"
                   priority={index === 0}
                   loading={index === 0 ? undefined : "lazy"}
-                  style={{ width: '100%', height: 'auto', maxHeight: '75vh', objectFit: 'cover', objectPosition: 'top' }}
-                  quality={90}
+                  style={{ width: '100%', height: 'auto' }}
                 />
               </div>
 
@@ -65,12 +66,10 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
                   sizes="100vw"
                   priority={index === 0}
                   loading={index === 0 ? undefined : "lazy"}
-                  style={{ width: '100%', height: 'auto', maxHeight: '60vh', objectFit: 'cover', objectPosition: 'top' }}
-                  quality={90}
+                  style={{ width: '100%', height: 'auto' }}
                 />
               </div>
-
-
+              </Link>
             </motion.div>
           );
         })}
@@ -84,7 +83,7 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
               key={i}
               onClick={() => setCurrentIndex(i)}
               className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
-                i === currentIndex ? "bg-white scale-125" : "bg-white/50 hover:bg-white/75"
+                i === currentIndex ? "bg-im-gold scale-125" : "bg-im-gold/40 hover:bg-im-gold/70"
               }`}
               aria-label={`Go to slide ${i + 1}`}
             />

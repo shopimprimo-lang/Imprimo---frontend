@@ -3,17 +3,16 @@ import Header from "@/components/product-page/Header";
 import ProductListSec from "@/components/common/ProductListSec";
 import { Product, ProductVariant } from "@/types/product.types";
 import { notFound } from "next/navigation";
+import { apiFetch } from "@/lib/api";
 
 export const dynamic = "force-dynamic";
-export const revalidate = 60;
+export const revalidate = 10; // short, so admin edits show up almost immediately
 
-const api = process.env.NEXT_PUBLIC_API_URL;
 
 async function getProduct(id: string): Promise<Product | null> {
-  if (!api) return null;
   try {
-    const res = await fetch(`${api}/product/${id}`, {
-      next: { revalidate: 60 },
+    const res = await apiFetch(`/product/${id}`, {
+      next: { revalidate: 10 },
     });
     if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) return null;
     const data = await res.json();
@@ -51,7 +50,7 @@ async function getProduct(id: string): Promise<Product | null> {
       title: p.name,
       category: p.category?.name || "General",
       description: p.description || "No product description available.",
-      srcUrl: defaultVariant?.images?.[0] || "/images/pic1.png",
+      srcUrl: defaultVariant?.images?.[0] || "/images/imprimo-logo.png",
       gallery: defaultVariant?.images || [],
       price: defaultVariant?.price || 0,
       discount: { amount: 0, percentage: 0 },
@@ -66,9 +65,8 @@ async function getProduct(id: string): Promise<Product | null> {
 }
 
 async function getRelatedProducts(): Promise<Product[]> {
-  if (!api) return [];
   try {
-    const res = await fetch(`${api}/product`, { next: { revalidate: 60 } });
+    const res = await apiFetch(`/product`, { next: { revalidate: 10 } });
     if (!res.ok) return [];
     const data = await res.json();
     const products = data.products || data;
@@ -90,7 +88,7 @@ async function getRelatedProducts(): Promise<Product[]> {
       return {
         id: p._id,
         title: p.name,
-        srcUrl: defaultVariant?.images?.[0] || "/images/pic1.png",
+        srcUrl: defaultVariant?.images?.[0] || "/images/imprimo-logo.png",
         price: defaultVariant?.price || 0,
         rating: 4,
         discount: { amount: 0, percentage: 0 },
@@ -124,13 +122,13 @@ export default async function ProductPage({
     return (
       <main>
         <div className="max-w-frame mx-auto px-4 xl:px-0">
-          <hr className="h-[1px] border-t-black/10 mb-5 sm:mb-6" />
+          <hr className="h-[1px] border-t-im-rich/20 mb-5 sm:mb-6" />
           <BreadcrumbProduct title={productData?.title ?? "product"} />
           <section className="mb-11">
             <Header data={productData} />
           </section>
           
-          <hr className="h-[1px] border-t-black/10 my-10 sm:my-16" />
+          <hr className="h-[1px] border-t-im-rich/20 my-10 sm:my-16" />
           <ProductListSec title="Related Products" data={await getRelatedProducts()} />
         </div>
       </main>

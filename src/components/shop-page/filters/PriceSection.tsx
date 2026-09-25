@@ -33,7 +33,7 @@ const PriceSection = () => {
   return (
     <Accordion type="single" collapsible defaultValue="filter-price">
       <AccordionItem value="filter-price" className="border-none">
-        <AccordionTrigger className="text-black font-bold text-xl hover:no-underline p-0 py-0.5">
+        <AccordionTrigger className="text-im-text font-bold text-xl hover:no-underline p-0 py-0.5">
           Price
         </AccordionTrigger>
         <AccordionContent className="pt-4" contentClassName="overflow-visible">
@@ -43,20 +43,20 @@ const PriceSection = () => {
             min={0}
             max={5000}
             step={1}
-            label="₹"
+            label="QAR"
           />
           <div className="mt-4 flex items-center justify-between">
             <div className="flex flex-col">
-              <span className="text-xs text-black/40 font-medium">Min</span>
-              <span className="text-base font-semibold text-black font-mono">
-                ₹{localPrice[0]?.toString().padStart(4, "0")}
+              <span className="text-xs text-im-text/55 font-medium">Min</span>
+              <span className="text-base font-semibold text-im-text font-mono">
+                QAR {localPrice[0]?.toString().padStart(4, "0")}
               </span>
             </div>
-            <span className="text-black/30">-</span>
+            <span className="text-im-text/55">-</span>
             <div className="flex flex-col text-right">
-              <span className="text-xs text-black/40 font-medium">Max</span>
-              <span className="text-base font-semibold text-black font-mono">
-                ₹{localPrice[1]?.toString().padStart(4, "0")}
+              <span className="text-xs text-im-text/55 font-medium">Max</span>
+              <span className="text-base font-semibold text-im-text font-mono">
+                QAR {localPrice[1]?.toString().padStart(4, "0")}
               </span>
             </div>
           </div>

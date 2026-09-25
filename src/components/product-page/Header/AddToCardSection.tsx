@@ -37,12 +37,12 @@ const AddToCardSection = ({ data, attributes = [] }: Props) => {
   };
 
   return (
-    <div className="fixed md:relative w-full bg-background border-t md:border-none border-border bottom-0 left-0 p-4 md:p-0 z-10 flex items-center gap-3">
-      <div className="flex items-center justify-between w-[120px] h-11 md:h-[52px] px-3 bg-[#F0F0F0] rounded-full shrink-0">
+    <div className="fixed md:relative w-full bg-im-black border-t md:border-none border-[rgba(201,166,70,0.2)] bottom-0 left-0 p-4 md:p-0 z-10 flex items-center gap-3">
+      <div className="flex items-center justify-between w-[110px] sm:w-[120px] h-11 md:h-[52px] px-3 border border-[rgba(201,166,70,0.3)] shrink-0">
         <button
           type="button"
           onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-          className="text-xl text-black hover:text-[#D71920] transition-colors"
+          className="text-xl text-im-text hover:text-im-gold transition-colors"
         >
           <FiMinus />
         </button>
@@ -50,7 +50,7 @@ const AddToCardSection = ({ data, attributes = [] }: Props) => {
         <button
           type="button"
           onClick={() => setQuantity((q) => q + 1)}
-          className="text-xl text-black hover:text-[#D71920] transition-colors"
+          className="text-xl text-im-text hover:text-im-gold transition-colors"
         >
           <FiPlus />
         </button>
@@ -59,14 +59,14 @@ const AddToCardSection = ({ data, attributes = [] }: Props) => {
       <button 
         type="button"
         onClick={handleAddToCart}
-        className="bg-[#D71920] text-white w-full rounded-full h-11 md:h-[52px] text-sm sm:text-base flex items-center justify-center hover:bg-[#B3151A] transition-all font-medium"
+        className="btn-outline-gold w-full h-11 md:h-[52px] !px-2 sm:!px-4"
       >
         Add to Cart
       </button>
       <button 
         type="button"
         onClick={handleBuyNow}
-        className="bg-[#D71920] text-white w-full rounded-full h-11 md:h-[52px] text-sm sm:text-base flex items-center justify-center hover:bg-[#B3151A] transition-all font-bold uppercase"
+        className="btn-gold w-full h-11 md:h-[52px] !px-2 sm:!px-4"
       >
         BUY NOW
       </button>

@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCategory } from "@/lib/features/filters/filtersSlice";
 import type { RootState } from "@/lib/store";
+import { apiFetch } from "@/lib/api";
 
 type Category = { _id?: string; name: string; slug: string };
 
@@ -18,12 +19,9 @@ const CategoriesSection = () => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const selectedCategories = useSelector((state: RootState) => state.filters.categories);
-  const api = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
-    if (!api) { setLoading(false); return; }
-
-    // Module-level cache — only fetch once per session
+        // Module-level cache — only fetch once per session
     if ((window as any).__categoryCache) {
       setCategories((window as any).__categoryCache);
       setLoading(false);
@@ -32,7 +30,7 @@ const CategoriesSection = () => {
 
     const fetchCategories = async () => {
       try {
-        const res = await fetch(`${api}/category`);
+        const res = await apiFetch(`/category`);
         if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) {
           setCategories([]);
           return;
@@ -52,19 +50,19 @@ const CategoriesSection = () => {
     };
 
     fetchCategories();
-  }, [api]);
+  }, []);
 
   return (
     <Accordion type="single" collapsible defaultValue="filter-category">
       <AccordionItem value="filter-category" className="border-none">
-        <AccordionTrigger className="text-black font-bold text-xl hover:no-underline p-0 py-0.5">
+        <AccordionTrigger className="text-im-text font-bold text-xl hover:no-underline p-0 py-0.5">
           Category
         </AccordionTrigger>
         <AccordionContent className="pt-4 pb-0">
           {loading ? (
             <div className="space-y-2 animate-pulse">
               {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="h-4 bg-gray-200 rounded w-full" />
+                <div key={i} className="h-4 bg-white/10 rounded w-full" />
               ))}
             </div>
           ) : categories.length > 0 ? (
@@ -77,12 +75,12 @@ const CategoriesSection = () => {
                     onChange={() => dispatch(toggleCategory(cat.name))}
                     className="w-4 h-4 rounded border-white/30 cursor-pointer"
                   />
-                  <span className="text-sm text-black/60">{cat.name}</span>
+                  <span className="text-sm text-im-text/60">{cat.name}</span>
                 </label>
               ))}
             </div>
           ) : (
-            <div className="text-sm text-black/60">No categories found</div>
+            <div className="text-sm text-im-text/60">No categories found</div>
           )}
         </AccordionContent>
       </AccordionItem>

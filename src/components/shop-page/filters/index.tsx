@@ -44,14 +44,14 @@ const Filters = ({ onApply }: { onApply?: () => void }) => {
 
   return (
     <>
-      <hr className="border-t-black/10" />
+      <hr className="border-t-im-rich/20" />
       <CategoriesSection />
-      <hr className="border-t-black/10" />
+      <hr className="border-t-im-rich/20" />
       <PriceSection />
       <div className="flex gap-2">
         <Button
           type="button"
-          className="bg-black w-full rounded-full text-sm font-medium py-4 h-12"
+          className="btn-gold w-full h-12"
           onClick={handleApplyFilter}
         >
           Apply Filter
@@ -59,7 +59,7 @@ const Filters = ({ onApply }: { onApply?: () => void }) => {
         <Button
           type="button"
           variant="outline"
-          className="w-full rounded-full text-sm font-medium py-4 h-12 border-black/20"
+          className="btn-outline-gold w-full h-12 bg-transparent"
           onClick={handleResetFilter}
         >
           Reset

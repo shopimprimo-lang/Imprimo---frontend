@@ -41,12 +41,12 @@ export default function CartPage() {
         messageText += `   • Quantity: ${item.quantity}\n`;
         messageText += `   • Color: ${item.attributes[0] || "N/A"}\n`;
         messageText += `   • Size: ${item.attributes[1] || "N/A"}\n`;
-        messageText += `   • Price: ₹${Math.round(item.price * item.quantity)}\n`;
+        messageText += `   • Price: QAR ${Math.round(item.price * item.quantity)}\n`;
         // messageText += `   • Image: ${item.srcUrl}\n`;
       });
       
       messageText += `\n━━━━━━━━━━━━━━━━━━━━━━\n`;
-      messageText += `\n💰 *Order Total:* ₹${Math.round(adjustedTotalPrice)}\n`;
+      messageText += `\n💰 *Order Total:* QAR ${Math.round(adjustedTotalPrice)}\n`;
       messageText += `📊 *Total Items:* ${cart.items.length}`;
       
       const message = encodeURIComponent(messageText);
@@ -69,13 +69,13 @@ export default function CartPage() {
             <h2
               className={cn([
                 integralCF.className,
-                "font-bold text-[32px] md:text-[40px] text-black uppercase mb-5 md:mb-6",
+                "font-bold text-[30px] md:text-[40px] text-im-gold tracking-[1px] mb-5 md:mb-6",
               ])}
             >
-              your <span className="text-[#D71920]">cart</span>
+              Your Cart
             </h2>
             <div className="flex flex-col lg:flex-row space-y-5 lg:space-y-0 lg:space-x-5 items-start">
-              <div className="w-full p-3.5 md:px-6 flex-col space-y-4 md:space-y-6 rounded-[20px] border border-white/10">
+              <div className="w-full p-3.5 md:px-6 flex-col space-y-4 md:space-y-6 card-luxe">
                 {cart?.items.map((product, idx, arr) => (
                   <React.Fragment key={idx}>
                     <ProductCard data={product} />
@@ -85,45 +85,45 @@ export default function CartPage() {
                   </React.Fragment>
                 ))}
               </div>
-              <div className="w-full lg:max-w-[505px] p-5 md:px-6 flex-col space-y-4 md:space-y-6 rounded-[20px] border border-white/10">
-                <h6 className="text-xl md:text-2xl font-bold text-black">
+              <div className="w-full lg:max-w-[505px] p-5 md:px-6 flex-col space-y-4 md:space-y-6 card-luxe">
+                <h6 className="text-xl md:text-2xl font-bold text-im-text">
                   Order Summary
                 </h6>
                 <div className="flex flex-col space-y-5">
                   <div className="flex items-center justify-between">
                     <span className="md:text-xl text-white/60">Subtotal</span>
-                    <span className="md:text-xl font-bold">₹{totalPrice}</span>
+                    <span className="md:text-xl font-bold">QAR {totalPrice}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    {/* <span className="md:text-xl text-black/60">
+                    {/* <span className="md:text-xl text-im-text/60">
                       Discount (-
                       {Math.round(
                         ((totalPrice - adjustedTotalPrice) / totalPrice) * 100
                       )}
                       %)
                     </span>
-                    <span className="md:text-xl font-bold text-red-600">
-                      -₹{Math.round(totalPrice - adjustedTotalPrice)}
+                    <span className="md:text-xl font-bold text-im-gold">
+                      -QAR {Math.round(totalPrice - adjustedTotalPrice)}
                     </span> */}
                   </div>
                   <div className="flex items-center justify-between">
-                    {/* <span className="md:text-xl text-black/60">
+                    {/* <span className="md:text-xl text-im-text/60">
                       Delivery Fee
                     </span>
                     <span className="md:text-xl font-bold">Free</span> */}
                   </div>
                   <hr className="border-t-white/10" />
                   <div className="flex items-center justify-between">
-                    <span className="md:text-xl text-black">Total</span>
+                    <span className="md:text-xl text-im-text">Total</span>
                     <span className="text-xl md:text-2xl font-bold">
-                      ₹{Math.round(adjustedTotalPrice)}
+                      QAR {Math.round(adjustedTotalPrice)}
                     </span>
                   </div>
                 </div>
                 <Button
                   type="button"
                   onClick={handleCheckout}
-                  className="text-sm md:text-base font-medium bg-black rounded-full w-full py-4 h-[54px] md:h-[60px] group"
+                  className="btn-gold w-full h-[54px] md:h-[60px] group"
                 >
                   Go to Checkout{" "}
                   <FaArrowRight className="text-xl ml-2 group-hover:translate-x-1 transition-all" />
@@ -132,10 +132,10 @@ export default function CartPage() {
             </div>
           </>
         ) : (
-          <div className="flex items-center flex-col text-gray-300 mt-32">
+          <div className="flex items-center flex-col text-im-muted mt-32">
             <TbBasketExclamation strokeWidth={1} className="text-6xl" />
             <span className="block mb-4">Your shopping cart is empty.</span>
-            <Button className="rounded-full w-24" asChild>
+            <Button className="btn-gold" asChild>
               <Link href="/shop">Shop</Link>
             </Button>
           </div>
