@@ -35,18 +35,16 @@ function dummyResponse(path: string): Response {
   return Response.json({ error: "Not found" }, { status: 404 });
 }
 
-// fetch() against the backend, falling back to local dummy data when the API
-// is unset, unreachable or not returning JSON (e.g. no database yet).
+// fetch() against the backend. With NEXT_PUBLIC_API_URL set (production) the real API is the only
+// source: failures come back as a 503 the pages treat as "no data" — never as demo products.
+// Local dummy data is used only when no API is configured (local development without a backend).
 export async function apiFetch(path: string, init: RequestInit = {}): Promise<Response> {
-  if (API_URL) {
-    try {
-      // Timeout so a backend stuck waiting on a DB doesn't hang server renders.
-      const res = await fetch(`${API_URL}${path}`, { ...init, signal: init.signal ?? AbortSignal.timeout(8000) });
-      if (res.ok && res.headers.get("content-type")?.includes("application/json")) return res;
-      if (res.status === 404 && res.headers.get("content-type")?.includes("application/json")) return res;
-    } catch (err: any) {
-      if (err?.name === "AbortError") throw err; // caller cancelled; keep their semantics
-    }
+  if (!API_URL) return dummyResponse(path);
+  try {
+    // 20s covers most of a sleeping Render instance waking up; pages allow 30s (maxDuration).
+    return await fetch(`${API_URL}${path}`, { ...init, signal: init.signal ?? AbortSignal.timeout(20000) });
+  } catch (err: any) {
+    if (err?.name === "AbortError" && init.signal?.aborted) throw err; // caller cancelled; keep their semantics
+    return Response.json({ error: "The Imprimo server is not reachable right now." }, { status: 503 });
   }
-  return dummyResponse(path);
 }

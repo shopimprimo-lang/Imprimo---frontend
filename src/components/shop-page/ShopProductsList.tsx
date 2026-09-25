@@ -203,7 +203,7 @@ const ShopProductsList = () => {
       ) : (
         <div className="w-full text-center py-20">
           <p className="text-im-text/60">
-            {search ? `No products found for "${search}".` : "Loading..."}
+            {search ? `No products found for "${search}".` : "No products are available right now. Please check back shortly."}
           </p>
         </div>
       )}

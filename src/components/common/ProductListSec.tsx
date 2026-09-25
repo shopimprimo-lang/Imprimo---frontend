@@ -23,6 +23,9 @@ const ProductListSec = ({ title, data, viewAllLink, eyebrow }: ProductListSecPro
       <h2 className={cn([integralCF.className, "section-title"])}>{title}</h2>
       {eyebrow && <p className="mt-4 text-sm md:text-base font-light text-im-text/80">{eyebrow}</p>}
       <div className="mb-8 md:mb-12" />
+      {data.length === 0 && (
+        <p className="mb-8 text-sm font-light text-im-text/70">No products are available right now. Please check back shortly.</p>
+      )}
       <div>
         <Carousel
           opts={{

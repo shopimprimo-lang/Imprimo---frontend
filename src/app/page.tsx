@@ -6,6 +6,7 @@ import { Banner } from "@/types/banner.types";
 import { apiFetch } from "@/lib/api";
 
 export const revalidate = 10; // short, so admin edits show up almost immediately
+export const maxDuration = 30; // allow the Render API time to wake from sleep
 
 
 async function getProducts(): Promise<Product[]> {

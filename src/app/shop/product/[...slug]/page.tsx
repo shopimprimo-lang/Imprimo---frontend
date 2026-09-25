@@ -7,6 +7,7 @@ import { apiFetch } from "@/lib/api";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 10; // short, so admin edits show up almost immediately
+export const maxDuration = 30; // allow the Render API time to wake from sleep
 
 
 async function getProduct(id: string): Promise<Product | null> {
