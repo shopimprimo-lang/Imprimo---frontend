@@ -1,6 +1,6 @@
 import { dummyBanners, dummyCategories, dummyProducts } from "@/data/dummy";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, ""); // no trailing slash → no "//product"
 
 // Same shape the backend returns, so call sites don't care where data came from.
 const toApiProduct = (p: (typeof dummyProducts)[number]) => ({

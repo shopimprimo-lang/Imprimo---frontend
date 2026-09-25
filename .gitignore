@@ -28,6 +28,7 @@ yarn-error.log*
 # env files — real values stay local; only .env.example is committed
 .env*
 !.env.example
+!.env.production
 
 # vercel
 .vercel
